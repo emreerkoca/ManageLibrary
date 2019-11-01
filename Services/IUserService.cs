@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ManageLibrary.Services
 {
-    interface IUserService
+    public interface IUserService
     {
         User Authenticate(string username, string password);
     }
