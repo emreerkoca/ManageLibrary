@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 //used to create temp backend
-import { tempBackendProvider } from './_helpers';
+import { tempBackendProvider } from './_helpers/temp-backend';
 
+import { appRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -25,15 +26,18 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' }
-    ])
+    ReactiveFormsModule,
+    appRoutingModule
+    // appRoutingModule,
+    // RouterModule.forRoot([
+    //   { path: '', component: HomeComponent, pathMatch: 'full' }
+    // ])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   
-    tempBackendProvider //temp backend provider
+    //tempBackendProvider //temp backend provider
   ],
   bootstrap: [AppComponent]
 })
