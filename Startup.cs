@@ -57,6 +57,7 @@ namespace ManageLibrary
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors("EnableCORS");
 

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using ManageLibrary.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,7 +26,7 @@ namespace ManageLibrary.Services
             new User { Id = 1, FirstName = "Carl", LastName = "Johnson", Username = "test", Password = "test" }
         };
 
-        public User Authenticate(string username, string password)
+        public string Authenticate(string username, string password)
         {
             var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
@@ -48,9 +49,8 @@ namespace ManageLibrary.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             user.Token = tokenHandler.WriteToken(token);
-            user.Password = null;
 
-            return user;
+            return user.Token;
         }
     }
 }
