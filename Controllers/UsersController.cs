@@ -26,14 +26,22 @@ namespace ManageLibrary.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
-            var token = _userService.Authenticate(model.Username, model.Password);
+            var user = _userService.Authenticate(model.Username, model.Password);
         
-            if(token == null)
+            if(user == null)
             {
                 return BadRequest(new { message = "User name and/or password are incorrect!" });
             }
 
-            return Ok(new { Token = token });
+            return Ok(user);
+        }
+
+        [HttpGet] 
+        public IActionResult GetUsersForClient()
+        {
+            var users = _userService.GetUsersForClient();
+
+            return Ok(users);
         }
     }
 }

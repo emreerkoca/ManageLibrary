@@ -23,10 +23,11 @@ namespace ManageLibrary.Services
 
         private List<User> _users = new List<User>
         {
-            new User { Id = 1, FirstName = "Carl", LastName = "Johnson", Username = "test", Password = "test" }
+            new User { Id = 1, FirstName = "Carl", LastName = "Johnson", Username = "test", Password = "test" },
+            new User { Id = 2, FirstName = "Sony", LastName = "Whites", Username = "sample", Password = "123456" }
         };
 
-        public string Authenticate(string username, string password)
+        public User Authenticate(string username, string password)
         {
             var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
@@ -49,8 +50,19 @@ namespace ManageLibrary.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             user.Token = tokenHandler.WriteToken(token);
+            user.Password = null;
 
-            return user.Token;
+            return user;
+        }
+
+        public IEnumerable<User> GetUsersForClient()
+        {
+            foreach(var user in _users)
+            {
+                user.Password = null;
+            }
+
+            return _users;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace ManageLibrary.Services
 {
     public interface IUserService
     {
-        string Authenticate(string username, string password);
+        User Authenticate(string username, string password);
+        IEnumerable<User> GetUsersForClient();
     }
 }
